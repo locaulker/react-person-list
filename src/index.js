@@ -1,17 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react"
+import ReactDOM from "react-dom"
+import "./index.css"
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// Child Component
+const Person = ({img, name, job, children}) => {
+	//const {img, name, job} = props
+	const url = `https://randomuser.me/api/portraits/thumb/men/${img}.jpg`
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+	return (
+		<article className="person">
+			<img src={url} target="noopener noreferrer" alt="Current Person" />
+			<h4>{name}</h4>
+			<h3>{job}</h3>
+			{children}
+		</article>
+	)
+}
+
+// Parent Component
+const PersonList = () => {
+	return (
+		<section className="person-list">
+			<Person img="34" name="John Doe" job="Sr. Developer" />
+			<Person img="22" name="Bob Doe" job="Designer">
+				<p>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga,
+					laudantium.
+				</p>
+			</Person>
+			<Person img="56" name="David Smith" job="Manager" />
+		</section>
+	)
+}
+
+ReactDOM.render(<PersonList />, document.getElementById("root"))
